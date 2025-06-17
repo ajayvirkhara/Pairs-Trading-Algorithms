@@ -52,7 +52,8 @@ Pairs-Trading-Algorithms/
 │   ├── pairs_trading_advanced.py
 │   ├── README_advanced.md
 │   ├── requirements_advanced.txt	
-│── README_project.md
+│── README.md
+│── LICENSE
 
 ## 5. Configuration  
 
