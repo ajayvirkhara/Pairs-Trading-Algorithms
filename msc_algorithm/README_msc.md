@@ -1,1 +1,107 @@
+# 📘 MSc Pairs Trading Algorithm
 
+## 1. Description
+This script implements the original version of a pairs trading strategy developed as part of my MSc dissertation. It tests for cointegration between S&P 500 stocks within a specified sector and simulates a simple mean-reversion trading strategy based on z-score thresholds.
+
+---
+
+## 2. Methodology Overview
+- **Universe**: S&P 500 stocks from a selected GICS sector.
+- **Data Source**: Yahoo Finance (via `yfinance`), monthly adjusted close prices.
+- **Cointegration Filter**: Pairs with ≥ 60 months of overlapping data pre-2018-01-01 and p-value < 0.05.
+- **Regression**: Static OLS on training period.
+- **Signals**: Z-score of price ratio. Long if z < -1, short if z > +1.
+- **Capital Allocation**: $500 per asset.
+
+---
+
+## 3. Key Parameters
+| Variable               | Description                                      | Default          |
+|------------------------|--------------------------------------------------|------------------|
+| `START`, `END`         | Backtest window                                 | 2011-01-01 to 2021-01-01 |
+| `TEST_SIZE`            | Fraction of data held out for testing            | 0.25             |
+| `SECTOR`               | GICS sector (env override supported)             | "Real Estate"    |
+| `DATA_FREQ`            | Price data interval (env override supported)     | "1mo"            |
+| `CUTOFF_DATE`          | Cointegration history cutoff                     | 2018-01-01       |
+| `MIN_MONTHS`           | Minimum history before cutoff                    | 60 months        |
+| `INITIAL_CAP_PER_ASSET`| Capital per asset                                | 500              |
+
+---
+
+## 4. Strategy Steps
+### 4.1 Data Preparation
+- Scrape S&P 500 tickers from Wikipedia.
+- Filter tickers by GICS sector.
+- Download monthly price data from Yahoo Finance.
+- Drop tickers with missing data.
+
+### 4.2 Train/Test Split
+- Non-shuffled split (25% reserved as test period).
+
+### 4.3 Correlation Pre-screen
+- Pearson correlation heatmap filtered to |\u03c1| > 0.6 to visualize co-movement.
+
+### 4.4 Cointegration Check
+- For each ticker pair, compute Engle-Granger p-value.
+- Retain pairs with sufficient history and p < 0.05.
+
+### 4.5 Signal Generation
+- Select a top cointegrated pair.
+- Estimate hedge ratio via OLS.
+- Compute spread and z-score.
+- Generate signals:
+  - **Long** if z < –1
+  - **Short** if z > +1
+  - **Exit** when z returns to within ±1
+
+### 4.6 Portfolio Simulation
+- Allocate fixed notional capital per asset.
+- Track holdings, cash, and total asset value.
+- Compute total portfolio PnL and Sharpe Ratio.
+
+---
+
+## 5. Outputs
+- **Top 10 Cointegrated Pairs** ranked by p-value
+- **Correlation Heatmap** and **Cointegration Matrix**
+- **Spread Plot** for selected pair
+- **Signal Plot** (entry/exit points)
+- **Portfolio Value Chart** with z-score overlay
+- **Performance Metrics**:
+  - CAGR
+  - Sharpe Ratio
+  - Final Portfolio Value
+
+---
+
+## 6. Usage
+```bash
+cd msc_algorithm
+python pairs_trading_msc.py
+```
+Optional: override defaults
+```bash
+$env:SECTOR = "Financials"
+$env:DATA_FREQ = "1mo"
+python pairs_trading_msc.py
+```
+
+---
+
+## 7. Limitations
+- No stop-loss/take-profit logic
+- Only backtests a **single** cointegrated pair
+- No transaction costs or slippage
+- Static hedge ratio
+
+---
+
+## 8. Author
+Ajayvir Khara  
+[LinkedIn](https://linkedin.com/in/ajayvirkhara)  
+[GitHub](https://github.com/ajayvirkhara)
+
+---
+
+## 9. License
+MIT © 2025
