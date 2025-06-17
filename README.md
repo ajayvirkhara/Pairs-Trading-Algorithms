@@ -43,17 +43,8 @@ A repository of two pairs-trading backtests on S&P 500 sectors during the COVID-
 - `pip install -r requirements_advanced.txt`  
 
 ## 4. Repository Structure
-Pairs-Trading-Algorithms/
-│── msc_algorithm/
-│   ├── pairs_trading_msc.py
-│   ├── README_msc.txt
-│   ├── requirements_msc.txt	
-│── advanced_algorithm/
-│   ├── pairs_trading_advanced.py
-│   ├── README_advanced.md
-│   ├── requirements_advanced.txt	
-│── README.md
-│── LICENSE
+
+Pairs-Trading-Algorithms/ ├── msc_algorithm/ │ ├── pairs_trading_msc.py │ ├── README_msc.txt │ ├── requirements_msc.txt ├── advanced_algorithm/ │ ├── pairs_trading_advanced.py │ ├── README_advanced.md │ ├── requirements_advanced.txt ├── LICENSE └── README.md
 
 ## 5. Configuration  
 
@@ -61,7 +52,7 @@ Edit constants at top of each script:
 - `START`, `END` – backtest window: default 2011-01-01, 2021-01-01  
 - `TEST_SIZE` – train/test split: default 0.25
 - `SECTOR` – GICS sector filter 
-- 'DATA_FREQ' – frequency of price data: default "1mo" 
+- `DATA_FREQ` – frequency of price data: default "1mo" 
 
 ### ⚙️ MSc specific config
 - `CUTOFF_DATE` – Minimum data cutoff
