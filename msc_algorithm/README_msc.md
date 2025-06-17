@@ -39,7 +39,7 @@ This script implements the original version of a pairs trading strategy develope
 - Non-shuffled split (25% reserved as test period).
 
 ### 4.3 Correlation Pre-screen
-- Pearson correlation heatmap filtered to |\u03c1| > 0.6 to visualize co-movement.
+- Pearson correlation heatmap filtered to |ρ| > 0.6 to visualize co-movement.
 
 ### 4.4 Cointegration Check
 - For each ticker pair, compute Engle-Granger p-value.
