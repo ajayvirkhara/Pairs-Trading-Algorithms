@@ -81,12 +81,6 @@ This script implements the original version of a pairs trading strategy develope
 cd msc_algorithm
 python pairs_trading_msc.py
 ```
-Optional: override defaults
-```bash
-$env:SECTOR = "Financials"
-$env:DATA_FREQ = "1mo"
-python pairs_trading_msc.py
-```
 
 ---
 
