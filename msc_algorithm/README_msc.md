@@ -8,7 +8,7 @@ This script implements the original version of a pairs trading strategy develope
 ## 2. Methodology Overview
 - **Universe**: S&P 500 stocks from a selected GICS sector.
 - **Data Source**: Yahoo Finance (via `yfinance`), monthly adjusted close prices.
-- **Cointegration Filter**: Pairs with ≥ 60 months of overlapping data pre-2018-01-01 and p-value < 0.05.
+- **Cointegration Filter**: Pairs with ≥ 60 months of overlapping data pre-2019-12-01 and p-value < 0.05.
 - **Regression**: Static OLS on training period.
 - **Signals**: Z-score of price ratio. Long if z < -1, short if z > +1.
 - **Capital Allocation**: $500 per asset.
@@ -18,11 +18,11 @@ This script implements the original version of a pairs trading strategy develope
 ## 3. Key Parameters
 | Variable               | Description                                      | Default                  |
 |------------------------|--------------------------------------------------|--------------------------|
-| `START`, `END`         | Backtest window                                  | 2011-01-01 to 2021-01-01 |
+| `START`, `END`         | Backtest window                                  | 2014-01-01 to 2021-12-01 |
 | `TEST_SIZE`            | Fraction of data held out for testing            | 0.25                     |
 | `SECTOR`               | GICS sector (env override supported)             | "Real Estate"            |
 | `DATA_FREQ`            | Price data interval (env override supported)     | "1mo"                    |
-| `CUTOFF_DATE`          | Cointegration history cutoff                     | 2018-01-01               |
+| `CUTOFF_DATE`          | Cointegration history cutoff                     | 2019-12-01               |
 | `MIN_MONTHS`           | Minimum history before cutoff                    | 60 months                |
 | `INITIAL_CAP_PER_ASSET`| Capital per asset                                | 500                      |
 
@@ -81,6 +81,12 @@ This script implements the original version of a pairs trading strategy develope
 cd msc_algorithm
 python pairs_trading_msc.py
 ```
+Optional: override defaults
+```bash
+$env:SECTOR = "Financials"
+$env:DATA_FREQ = "1mo"
+python pairs_trading_msc.py
+```
 
 ---
 
@@ -89,6 +95,7 @@ python pairs_trading_msc.py
 - Only backtests a **single** cointegrated pair
 - No transaction costs or slippage
 - Static hedge ratio
+- Fixed z-score entry/exit thresholds
 
 ---
 
