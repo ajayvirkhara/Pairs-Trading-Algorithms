@@ -10,6 +10,8 @@
 - Performance comparison during COVID-era volatility
 - Optional transaction costs
 
+---
+
 ## 📑 Table of Contents
 0. [Features](#0-features)  
 1. [Overview](#1-overview)  
@@ -18,10 +20,15 @@
 4. [Repository Structure](#4-repository-structure)  
 5. [Configuration](#5-configuration)  
 6. [Usage](#6-usage)  
-7. [License & Contact](#7-license--contact)  
+7. [Author](#7-author)  
+8. [Contact](#8-contact)  
+
+---
 
 ## 1. Overview  
 A repository of two pairs-trading backtests on S&P 500 sectors during the COVID-19 crisis. The original version was developed as part of my MSc dissertation, with the subsequent advanced algorithm incorporating refinements reflecting deeper exploration of strategy design and implementation. Both use cointegration to identify mean-reverting pairs; the advanced version adds rolling regressions, grid-search threshold optimization, volatility sizing, stop-loss/take-profit logic and top-10 pair diversification.
+
+---
 
 ## 2. Key Results (2014-01-01 – 2021-12-01, 75/25 train/test, frictionless trading)  
 | Sector                   | CAGR: MSc. Alg. (top pair)       | Sharpe | CAGR: Adv. Alg. (top 10 pairs)    | Sharpe |
@@ -38,10 +45,14 @@ A repository of two pairs-trading backtests on S&P 500 sectors during the COVID-
 | Utilities                | ETR-SRE: 5.9 %          	      |  1.51  | 6.2%            	               |  2.31  |
 | Real Estate              | CCI-CPT: –3.8 %        	      | –0.69  | 6.3%               	           |  1.70  |
 
+---
+
 ## 3. Prerequisites  
 - Python 3.8+  
 - `pip install -r requirements_msc.txt`  
 - `pip install -r requirements_advanced.txt`  
+
+---
 
 ## 4. Repository Structure
 
@@ -56,6 +67,8 @@ Pairs-Trading-Algorithms/
 │ ├── requirements_advanced.txt
 ├── LICENSE
 └── README.md
+
+---
 
 ## 5. Configuration  
 
@@ -76,6 +89,8 @@ Edit constants at top of each script:
 - `TOTAL_CAPITAL` – Capital allocated across all pairs: default 10000
 - `TRANSACTION_COST` – Transaction costs per trade: default 0
 
+---
+
 ## 6. Usage  
 
 cd Pairs-Trading-Algorithms/msc_algorithm
@@ -84,11 +99,20 @@ python pairs_trading_msc.py
 cd  Pairs-Trading-Algorithms/advanced_algorithm
 python pairs_trading_advanced.py
 
-## 7. License & Contact
-## 📜 License
-MIT © 2025
+---
 
-## 🙋 Contact
-**Ajayvir Khara**  
+## 7. Author
+Ajayvir Khara  
 [LinkedIn](https://linkedin.com/in/ajayvirkhara)  
 [GitHub](https://github.com/ajayvirkhara)
+
+---
+
+## 8. License
+MIT © 2025
+
+---
+
+## ⚠️ Disclaimer
+
+This repository is for educational and research purposes only. The algorithms and results are not intended as financial advice or investment recommendations. Past performance, especially in backtests, is not indicative of future results. Use of this code is at your own risk.
