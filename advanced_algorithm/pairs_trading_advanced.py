@@ -19,18 +19,18 @@ from statsmodels.tsa.stattools import coint
 from scipy.stats import zscore
 from sklearn.model_selection import train_test_split
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────── 
 # Strategy set-up.
 
-TEST_SIZE          = 0.25                                 # fraction of data held out for testing
-START              = "2011-01-01"                         # backtest window start date
-END                = "2021-01-01"                         # backtest window end date
+TEST_SIZE          = 2/8                                  # fraction of data held out for testing
+START              = "2014-01-01"                         # backtest window start date
+END                = "2021-12-01"                         # backtest window end date
 TOTAL_CAPITAL      = 1000                                 # total capital allocated
 IN_SAMPLE_YEARS    = 5                                    # years of history required for cointegrated pairs
 ROLL_WINDOW_BETA   = 24                                   # months for rolling Beta estimation
 ROLL_WINDOW_VOL    = 12                                   # months to estimate spread volatility
 DATA_FREQ          = os.getenv("DATA_FREQ", "1mo")        # price data frequency
-SECTOR             = os.getenv("SECTOR", "Real Estate")   # GICS sector
+SECTOR             = os.getenv("SECTOR", "Energy")        # GICS sector
 TRANSACTION_COST   = 0.000                                # transaction cost per trade
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -228,20 +228,20 @@ for asset1, asset2, p in top_pairs:
     bx2 = bx.twinx()
 
     # Plot price series.
-    l1, = bx.plot(signals['asset1'], label=asset1)
-    l2, = bx2.plot(signals['asset2'], label=asset2, alpha=0.7)
+    l1, = bx.plot(signals['asset1'], label=asset1, color='darkblue')
+    l2, = bx2.plot(signals['asset2'], label=asset2, color='orangered', alpha=0.8)
 
     # Mark entry/exit on asset1.
     entries = signals.index[signals['trade1'] == 1]
     exits   = signals.index[signals['trade1'] == -1]
-    bx.scatter(entries, signals.loc[entries, 'asset1'], marker='^', color='g')
-    bx.scatter(exits,   signals.loc[exits,   'asset1'], marker='v', color='r')
+    entry_marker = bx.scatter(entries, signals.loc[entries, 'asset1'], marker='^', color='g', label='Entry')
+    exit_marker  = bx.scatter(exits,   signals.loc[exits,   'asset1'], marker='v', color='r', label='Exit')
 
     bx.set_title(f"{asset1}-{asset2} Signals")
     bx.set_xlabel("Date")
     bx.set_ylabel(asset1)
     bx2.set_ylabel(asset2)
-    bx.legend(loc='upper left')
+    bx.legend(loc='upper left', handles=[l1, entry_marker, exit_marker])
     plt.tight_layout()
 
     print(f"  z-range: {signals.z.min():.2f} to {signals.z.max():.2f}")
