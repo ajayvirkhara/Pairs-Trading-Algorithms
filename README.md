@@ -56,6 +56,8 @@ A repository of two pairs-trading backtests on S&P 500 sectors during the COVID-
 
 ## 4. Repository Structure
 
+```
+
 Pairs-Trading-Algorithms/
 ├── msc_algorithm/
 │ ├── pairs_trading_msc.py
@@ -67,6 +69,8 @@ Pairs-Trading-Algorithms/
 │ ├── requirements_advanced.txt
 ├── LICENSE
 └── README.md
+
+```
 
 ---
 
