@@ -21,7 +21,7 @@
 5. [Configuration](#5-configuration)  
 6. [Usage](#6-usage)  
 7. [Author](#7-author)  
-8. [Contact](#8-contact)  
+8. [License](#8-license)  
 
 ---
 
