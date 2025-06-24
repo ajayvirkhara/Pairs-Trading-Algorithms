@@ -153,3 +153,8 @@ Ajayvir Khara
 ## 10. License
 MIT © 2025
 
+---
+
+## ⚠️ Disclaimer
+
+This repository is for educational and research purposes only. The algorithms and results are not intended as financial advice or investment recommendations. Past performance, especially in backtests, is not indicative of future results. Use of this code is at your own risk.
