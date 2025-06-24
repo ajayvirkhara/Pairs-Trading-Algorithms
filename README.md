@@ -23,20 +23,20 @@
 ## 1. Overview  
 A repository of two pairs-trading backtests on S&P 500 sectors during the COVID-19 crisis. The original version was developed as part of my MSc dissertation, with the subsequent advanced algorithm incorporating refinements reflecting deeper exploration of strategy design and implementation. Both use cointegration to identify mean-reverting pairs; the advanced version adds rolling regressions, grid-search threshold optimization, volatility sizing, stop-loss/take-profit logic and top-10 pair diversification.
 
-## 2. Key Results (2011-01-01 – 2021-01-01, 75/25 train/test, frictionless trading)  
+## 2. Key Results (2014-01-01 – 2021-12-01, 75/25 train/test, frictionless trading)  
 | Sector                   | CAGR: MSc. Alg. (top pair)       | Sharpe | CAGR: Adv. Alg. (top 10 pairs)    | Sharpe |
 |--------------------------|----------------------------------|--------|-----------------------------------|--------|
-| Energy                   | CVX-OKE: 11.4 %    	          | 0.82   | 12.1 %           	               | 0.63   |
-| Materials                | AMCR-MLM: 4.5 %        	      | 1.08   | 6.4 %                             | 1.36   |
-| Industrials              | AOS-LII: 5.4 %         	      | 0.48   | 7.4 %                 		       | 1.85   |
-| Consumer Discretionary   | DHI-EBAY: 7.6 %        	      | 1.02   | 4.6 %                		       | 0.89   |
-| Consumer Staples         | DLTR-MO: 5.3 %         	      | 0.34   | 4.0 %                		       | 0.84   |
-| Health Care              | LH-UNH: 2.9 %          	      | 0.32   | 2.2 %               		       | 0.54   |
-| Financials               | ICE-WTW: 3.3 %         	      | 1.33   | 6.0 %                		       | 1.62   |
-| Information Technology   | AAPL-VRSN: –3.7 %      	      | –0.79  | 7.2 %               		       | 2.00   |
-| Comm. Services           | MTCH-TKO: –31.2 %      	      | –1.74  | 4.0 %                	 	       | 0.69   |
-| Utilities                | AEP-ES: 1.4 %          	      | 0.64   | 3.5 %                 	           | 1.85   |
-| Real Estate              | ESS-EXR: –0.73 %       	      | –0.13  | 6.5 %                	           | 1.53   |
+| Energy                   | PSX-TPL: -9.6 %    	          | -0.30  | 10.6%   	                       |  0.76  |
+| Materials                | AMCR-NEM: 13.9 %        	      |  0.84  | 10.1%                             |  1.78  |
+| Industrials              | BR-EXPD: 4.5 %         	      |  1.75  | 7.5%                 		       |  1.87  |
+| Consumer Discretionary   | AMZN-BBY: 4.5 %        	      |  0.47  | 8.8%               		       |  1.04  |
+| Consumer Staples         | KDP-MKC: 3.4 %         	      |  0.56  | 8.9%              		           |  2.83  |
+| Health Care              | ELV-RVTY: 7.0 %          	      |  0.52  | 11.3%             		           |  2.98  |
+| Financials               | MTB-RJF: -8.9 %         	      | -0.89  | 8.7%              		           |  1.80  |
+| Information Technology   | CSCO-LRCX: –3.9 %      	      | –0.24  | 12.5%          		           |  2.41  |
+| Comm. Services           | CHTR-CMCSA: 4.8 %      	      |  0.50  | 12.8%           	 	           |  2.55  |
+| Utilities                | ETR-SRE: 5.9 %          	      |  1.51  | 6.2%            	               |  2.31  |
+| Real Estate              | CCI-CPT: –3.8 %        	      | –0.69  | 6.3%               	           |  1.70  |
 
 ## 3. Prerequisites  
 - Python 3.8+  
@@ -60,13 +60,13 @@ Pairs-Trading-Algorithms/
 ## 5. Configuration  
 
 Edit constants at top of each script:  
-- `START`, `END` – Backtest window: default 2011-01-01, 2021-01-01  
-- `TEST_SIZE` – Train/test split: default 0.25
+- `START`, `END` – Backtest window: default 2014-01-01, 2021-12-01  
+- `TEST_SIZE` – Train/test split: default 0.25 (roughly 2 years)
 - `SECTOR` – GICS sector filter 
 - `DATA_FREQ` – Frequency of price data: default "1mo"
 
 ### ⚙️ MSc specific config
-- `CUTOFF_DATE` – Minimum data cutoff: default "2018-01-01"
+- `CUTOFF_DATE` – Minimum data cutoff: default "2019-12-01"
 - `MIN_MONTHS` – Required monthly history: default 60
 - `INITIAL_CAP_PER_ASSET` – Capital per trade leg: default 500
 
