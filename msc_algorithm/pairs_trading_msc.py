@@ -16,14 +16,14 @@ from sklearn.model_selection import train_test_split
 # ──────────────────────────────────────────────────────────────────────────────
 # Strategy set-up.
 
-TEST_SIZE             = 0.25                                 # fraction of data held out for testing
+TEST_SIZE             = 2/8                                  # fraction of data held out for testing
 MIN_MONTHS            = 60                                   # months of history required for cointegrated pairs
-CUTOFF_DATE           = pd.Timestamp("2018-01-01")           # cut-off date for requiring MIN_MONTHS of history before testing cointegration
+CUTOFF_DATE           = pd.Timestamp("2019-12-01")           # cut-off date for requiring MIN_MONTHS of history before testing cointegration
 INITIAL_CAP_PER_ASSET = 500                                  # capital allocated per asset
-START                 = datetime.datetime(2011, 1, 1)        # backtest window start date
-END                   = datetime.datetime(2021, 1, 1)        # backtest window end date
+START                 = datetime.datetime(2014, 1, 1)        # backtest window start date
+END                   = datetime.datetime(2021, 12, 1)       # backtest window end date
 DATA_FREQ             = os.getenv("DATA_FREQ", "1mo")        # price data frequency
-SECTOR                = os.getenv("SECTOR", "Real Estate")   # GICS sector
+SECTOR                = os.getenv("SECTOR", "Energy")        # GICS sector
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Scrape S&P 500 data from Wikipedia and rename columns.
@@ -146,8 +146,8 @@ plt.tight_layout()
 # Backtest set-up.
 
 # Choose asset-pair.
-asset1 = 'ESS'
-asset2 = 'EXR'
+asset1 = 'PSX'
+asset2 = 'TPL'
 
 # Build training dataframe for the chosen pair and drop any NaN/inf values.
 train = pd.DataFrame()
@@ -209,8 +209,8 @@ bx = fig.add_subplot(111)
 bx2 = bx.twinx()
 
 # Plot the two different assets.
-l1, = bx.plot(signals['asset1'], c='#4abdac')
-l2, = bx2.plot(signals['asset2'], c='#907163')
+l1, = bx.plot(signals['asset1'], color='darkblue')
+l2, = bx2.plot(signals['asset2'], color='orangered')
 u1, = bx.plot(signals['asset1'][signals['positions1'] == 1], lw=0, marker='^', markersize=8, c='g',alpha=0.7)
 d1, = bx.plot(signals['asset1'][signals['positions1'] == -1], lw=0,marker='v',markersize=8, c='r',alpha=0.7)
 u2, = bx2.plot(signals['asset2'][signals['positions2'] == 1], lw=0,marker=2,markersize=9, c='g',alpha=0.9, markeredgewidth=3)
@@ -234,7 +234,7 @@ plt.tight_layout()
 positions1 = INITIAL_CAP_PER_ASSET// max(signals['asset1'])
 positions2 = INITIAL_CAP_PER_ASSET// max(signals['asset2'])
 
-# Since there are two assets, we calculate each asset Pnl separately and in the end we aggregate them into one portfolio.
+# Since there are two assets, we calculate each asset PnL separately and in the end we aggregate them into one portfolio.
 # PnL for the 1st asset.
 portfolio = pd.DataFrame()
 portfolio['asset1'] = signals['asset1']
@@ -252,14 +252,14 @@ portfolio['total asset2'] = portfolio['holdings2'] + portfolio['cash2']
 portfolio['return2'] = portfolio['total asset2'].pct_change()
 portfolio['positions2'] = signals['positions2']
 
-# Total pnl and z-score.
+# Total PnL and z-score.
 portfolio['z'] = signals['z']
 portfolio['total asset'] = portfolio['total asset1'] + portfolio['total asset2']
 portfolio['z upper limit'] = signals['z upper limit']
 portfolio['z lower limit'] = signals['z lower limit']
 portfolio = portfolio.dropna()
 
-# Plot the change in portfolio value, pnl, and z-score.
+# Plot the change in portfolio value, PnL, and z-score.
 fig = plt.figure(figsize=(14,6),)
 ax = fig.add_subplot(111)
 ax2 = ax.twinx()
